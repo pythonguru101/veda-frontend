@@ -5,7 +5,6 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
     "cordova-build-android": "cross-env CORDOVA_PLATFORM=android vue-cli-service cordova-build-android",
     "cordova-build-browser": "cross-env CORDOVA_PLATFORM=browser vue-cli-service cordova-build-browser",
     "cordova-build-electron": "cross-env CORDOVA_PLATFORM=electron vue-cli-service cordova-build-electron",
@@ -24,36 +23,20 @@
     "cordova-serve-osx": "cross-env CORDOVA_PLATFORM=osx vue-cli-service cordova-serve-osx"
   },
   "dependencies": {
+    "axios": "^0.24.0",
     "core-js": "^3.6.5",
-    "vue": "^2.6.11",
-    "vue-router": "^3.2.0",
-    "vue-toast-notification": "3.0",
-    "vuex": "^3.6.2"
+    "v-swipeout": "^1.0.7",
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.0-0",
+    "vue-toast-notification": "^3.0.0",
+    "vue3-date-time-picker": "^2.4.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "vue-cli-plugin-cordova": "~2.4.1",
-    "vue-template-compiler": "^2.6.11"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {}
+    "@vue/compiler-sfc": "^3.0.0",
+    "vue-cli-plugin-cordova": "~2.4.1"
   },
   "browserslist": [
     "> 1%",

@@ -1,42 +1,40 @@
 <template>
   <div id="auth">
+    <Toast v-if="store.state.showToast" />
     <img alt="bg logo" src="../assets/bg.png" class="bgImage" />
     <img alt="app logo" src="../assets/app-logo.png" class="logo" />
-    <div class="input_container">
-      <input
-        type="text"
-        class="input"
-        v-model="input.email"
-        placeholder="Email"
-      />
-      <img src="../assets/mail.png" class="input_img" />
-    </div>
-    <div class="input_container">
-      <input
-        type="text"
-        class="input"
-        v-model="input.password"
-        placeholder="Password"
-      />
-      <img src="../assets/password.png" class="input_img" />
-    </div>
-    <span v-if="error">
-      <p class="errorText">{{ errorText }}</p>
-    </span>
-    <div class="input_container">
-      <button class="button" @click="login()">Login</button>
-    </div>
-    <h3 class="text">or continue with</h3>
-    <div class="social_container">
-      <div class="social_box">
-        <img alt="facebook" src="../assets/facebook.png" class="social_logo" />
-        <h6 class="fb">Facebook</h6>
+    <form class="form_container" @submit="store.methods.loginHandle">
+      <div class="input_container">
+        <input
+          required
+          type="email"
+          class="input"
+          v-model="store.state.email"
+          placeholder="Email"
+        />
+        <img src="../assets/mail.png" class="input_img" />
       </div>
-      <div class="social_box social_box_right">
-        <img alt="google" src="../assets/google.png" class="social_logo" />
-        <h6 class="google">Google</h6>
+      <div class="input_container">
+        <input
+          required
+          type="password"
+          class="input"
+          v-model="store.state.password"
+          placeholder="Password"
+          autocomplete="on"
+        />
+        <img src="../assets/password.png" class="input_img" />
       </div>
-    </div>
+      <span v-if="store.state.error">
+        <p class="errorText">{{ store.state.errorText }}</p>
+      </span>
+      <span v-if="store.state.loading">
+        <p class="loadingText">Loading...</p>
+      </span>
+      <div class="input_container">
+        <button class="button" type="submit">Login</button>
+      </div>
+    </form>
     <div class="last_text">
       <h3 class="left_text">Don't have an account?</h3>
       <h3 class="right_text" @click="gotoRegistration()">SIGN UP</h3>
@@ -45,42 +43,24 @@
 </template>
 
 <script>
+import { inject } from "vue";
+import Toast from "../components/Toast.vue";
 export default {
   name: "Login",
-  data() {
+  setup() {
+    const store = inject("store");
     return {
-      input: {
-        email: "",
-        password: "",
-      },
-      error: false,
-      errorText: "",
+      store,
     };
   },
+  components: {
+    Toast,
+  },
   methods: {
-    login() {
-      if (this.input.email === "" || this.input.password === "") {
-        this.error = true;
-        this.errorText = "All text field are required!";
-      } else if (
-        this.input.email === "admin" &&
-        this.input.password === "123"
-      ) {
-        this.$store.commit("setAuthentication", true);
-        this.$store.commit("toastMessage", "Login succesfully!");
-        this.$router.replace({ name: "home" });
-      } else {
-        this.error = true;
-        this.errorText = "Invalid user name or password!";
-      }
-    },
-    gotoRegistration() {
+    async gotoRegistration() {
+      await this.store.methods.clearField();
       this.$router.replace({ name: "register" });
     },
   },
 };
 </script>
-
-<style>
-@import "../styles/screens/Auth.css";
-</style>

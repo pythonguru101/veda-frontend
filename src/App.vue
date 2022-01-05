@@ -5,15 +5,16 @@
 </template>
 
 <script>
+import { provide } from "vue";
+import store from "./store";
 export default {
   name: "App",
+  setup() {
+    provide("store", store);
+  },
 };
 </script>
 
 <style>
-#app {
-  font-family: "Asap", "Open Sans Condensed", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@import "./styles/index.css";
 </style>

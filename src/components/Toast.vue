@@ -1,24 +1,30 @@
 <template>
   <div class="toast-wrapper">
-    <div class="toast">{{ $store.state.toastText }}</div>
+    <div class="toast">{{ store.state.toastText }}</div>
   </div>
 </template>
 
 <script>
+import { inject } from "vue";
 export default {
   name: "Toast",
-  data() {
-    return {};
+  setup() {
+    const store = inject("store");
+    return {
+      store,
+    };
   },
-  methods: {},
+  mounted() {
+    setTimeout(() => this.store.methods.triggerToast(), 2500);
+  },
 };
 </script>
 
-<style>
+<style scoped>
 .toast-wrapper {
   position: fixed;
   width: 100%;
-  top: 20px;
+  top: 85%;
 }
 .toast {
   padding: 12px;
